@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SciMath Keyboard — Developer Notes</title>
+<style>
+  :root {
+    --accent: #0050a0;
+    --accent-light: #e8f0fb;
+    --text: #1a1a1a;
+    --muted: #555;
+    --border: #ccd6e8;
+    --warn-bg: #fff8e6;
+    --warn-border: #e6a800;
+    --code-bg: #f4f4f4;
+    --max: 820px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    background: #fff;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; }
+
+  header {
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  header h1 { font-size: 1.9rem; color: var(--accent); }
+  header p { color: var(--muted); margin-top: 0.3rem; }
+
+  nav {
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    margin-bottom: 2.5rem;
+  }
+  nav h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.5rem; }
+  nav ol { padding-left: 1.2rem; }
+  nav li { margin: 0.2rem 0; }
+  nav a { color: var(--accent); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+
+  section { margin-bottom: 3rem; }
+  h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  h3 { font-size: 1rem; margin: 1.4rem 0 0.4rem; color: var(--text); }
+  p { margin-bottom: 0.8rem; }
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  li { margin: 0.3rem 0; }
+
+  .note {
+    background: var(--warn-bg);
+    border-left: 4px solid var(--warn-border);
+    border-radius: 0 6px 6px 0;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .note strong { color: #7a5500; }
+
+  .info {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  code {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.88em;
+    margin: 0.8rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.95em;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+  }
+  td { padding: 0.45rem 0.8rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--accent-light); }
+
+  .fb { font-family: monospace; color: var(--muted); font-size: 0.88em; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 3rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>SciMath Keyboard — Developer Notes</h1>
+  <p>Design decisions, platform constraints, and known limitations for developers building similar keyboard extensions.</p>
+  <p style="margin-top:0.5rem;font-size:0.88rem;color:#888;">
+    "Keep your stick on the ice. We're all in this together." — Red Green
+  </p>
+</header>
+
+<nav>
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#full-access">Full Access and what it actually blocks</a></li>
+    <li><a href="#balloons">Key preview balloons</a></li>
+    <li><a href="#keyflash">Key flash as an alternative</a></li>
+    <li><a href="#ios26">iOS 26 gesture regression</a></li>
+    <li><a href="#ipad-iphone">iPad vs iPhone layout differences</a></li>
+    <li><a href="#diacriticals">Diacritical coverage</a></li>
+    <li><a href="#colors">Keyboard background colors</a></li>
+    <li><a href="#globe">Globe key</a></li>
+    <li><a href="#mic">Microphone button</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<section id="full-access">
+  <h2>1. Full Access and what it actually blocks</h2>
+
+  <p>iOS keyboard extensions run in a sandboxed process. Full Access is an elevated entitlement that allows the extension to make network requests and share data with its containing app. When a user installs a third-party keyboard, iOS presents a warning that the keyboard "may be able to access everything you type." This warning is shown for all third-party keyboards regardless of whether they actually log anything.</p>
+
+  <p>SciMath does not request Full Access and will not. No keystrokes are logged or transmitted. The consequence is that several iOS features are unavailable:</p>
+
+  <table>
+    <tr><th>Feature</th><th>Why it requires Full Access</th></tr>
+    <tr><td>Autocorrect / predictive text</td><td>iOS passes text context to the correction engine via a mechanism that requires Full Access.</td></tr>
+    <tr><td>Dictation</td><td>Audio is routed through Apple's servers. The entitlement to make that network call requires Full Access.</td></tr>
+    <tr><td>Translation</td><td>Same network entitlement requirement as dictation.</td></tr>
+  </table>
+
+  <div class="note">
+    <strong>Note for developers:</strong> These are hard platform limits, not implementation choices. No amount of clever engineering recovers them without requesting Full Access. If your keyboard's value proposition depends on privacy — as SciMath's does — these features are simply off the table.
+  </div>
+
+  <p>The microphone button is present in SciMath's iPad toolbar as a visual placeholder only. See <a href="#mic">Section 9</a>.</p>
+
+  <p>SciMath also omits an emoji key by design. Users who need emoji can hold the globe key, switch to a stock system keyboard, insert the emoji, and switch back. This is documented in the user manual as the supported workaround.</p>
+</section>
+
+<!-- 2 -->
+<section id="balloons">
+  <h2>2. Key preview balloons</h2>
+
+  <p>Stock iOS keyboards show a magnified balloon preview above a key while the user's finger is down. This is implemented in Apple's private keyboard framework and is not directly available to keyboard extensions.</p>
+
+  <p>Extensions can approximate the behavior by rendering a popup view within their own view hierarchy. The architectural constraint is that a keyboard extension's view cannot render outside its own bounds. This means:</p>
+
+  <ul>
+    <li>Balloons above keys in the top row of the keyboard will be clipped at the top edge of the keyboard view.</li>
+    <li>There is no supported API to extend the keyboard view's clipping region upward into the host app's view hierarchy.</li>
+    <li>This is not fixable from within an extension. It is an Apple architectural decision.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Note for developers:</strong> The only workaround is to make the keyboard taller to create clearance above the top row, which wastes screen real estate and looks wrong. SciMath does not do this. Top-row balloons go downward instead to avoid clipping.
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="keyflash">
+  <h2>3. Key flash as an alternative feedback mechanism</h2>
+
+  <p>SciMath implements key flash: when a key is tapped, its background briefly brightens. This is distinct from the balloon preview and serves a complementary purpose.</p>
+
+  <h3>Implementation</h3>
+  <p>Key flash is an explicit UIColor change triggered on <code>touchesBegan</code>, not a system animation. The key brightens immediately on first contact and restores after a short interval. It does not use gesture recognition and therefore has no recognition delay.</p>
+
+  <h3>Advantages over balloons in field conditions</h3>
+  <ul>
+    <li><strong>Speed:</strong> Fires on first touch contact with no gesture recognition overhead. Balloons require gesture state to advance to <code>.began</code> before they appear.</li>
+    <li><strong>Visibility:</strong> Brightening is visible in high-ambient light and direct sunlight, where a small floating balloon may be hard to distinguish. SciMath was designed partly for outdoor use.</li>
+    <li><strong>No clipping issue:</strong> Flash is in-key. It has no dependency on rendering outside the keyboard bounds.</li>
+  </ul>
+
+  <p>Key flash is user-toggleable. The preference is stored in App Groups shared defaults so the keyboard extension and the containing app stay in sync without Full Access.</p>
+</section>
+
+<!-- 4 -->
+<section id="ios26">
+  <h2>4. iOS 26 gesture regression</h2>
+
+  <p>In iOS 26.x (May 2026), Apple introduced a regression affecting gesture detection in keyboard extensions. <code>UIPanGestureRecognizer</code> no longer transitions to <code>.began</code> on stationary contact — it waits for the finger to move. Key preview balloons depend on detecting first contact immediately; the regression broke them entirely.</p>
+
+  <p>This is a confirmed Apple bug, acknowledged by an Apple engineer. Filed as <span class="fb">FB19394663</span> and <span class="fb">FB19405284</span>.</p>
+
+  <h3>Workaround</h3>
+  <p>Subclass <code>UIPanGestureRecognizer</code> and override <code>touchesBegan</code> to force <code>state = .began</code> on first contact:</p>
+
+<pre>class ImmediatePanGestureRecognizer: UIPanGestureRecognizer {
+    override func touchesBegan(_ touches: Set&lt;UITouch&gt;,
+                                with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+        state = .began
+    }
+}</pre>
+
+  <p>Use this subclass wherever you would have used <code>UIPanGestureRecognizer</code> for balloon triggering. This is a supported API call, not a hack. It will continue to work after Apple fixes the underlying bug, because forcing <code>.began</code> on contact is valid behavior for a pan recognizer with zero minimum distance.</p>
+
+  <div class="info">
+    If you are using SwiftUI rather than UIKit, the equivalent workaround is <code>DragGesture(minimumDistance: 0)</code> with <code>.simultaneousGesture()</code>. The UIKit subclass approach above is for UIKit keyboard extensions only.
+  </div>
+
+  <p>SciMath forked at v0.400 to isolate and test this workaround before forward-porting it to the full feature set.</p>
+</section>
+
+<!-- 5 -->
+<section id="ipad-iphone">
+  <h2>5. iPad vs iPhone layout differences</h2>
+
+  <p>SciMath's ABC, 123, and #+= layers match stock Apple layouts on both platforms. The sci layer is SciMath's own, with no stock equivalent to reference.</p>
+
+  <h3>iPhone sci layer</h3>
+  <p>Three rows: 10 keys, 10 keys, 7 keys. The shorter third row reflects the narrower iPhone form factor and the space taken by the toggle and backspace keys.</p>
+
+  <h3>iPad sci layer</h3>
+  <p>Three rows: 10 keys + backspace, 10 keys + return, 10 keys with toggles at both ends. The iPad's wider layout accommodates additional keys that cannot fit on iPhone without the keys becoming too small to tap reliably.</p>
+
+  <h3>123 and #+= layers on iPad</h3>
+  <p>These match stock iPadOS layout, which differs from stock iOS layout. In particular, the iPad 123 layer includes superscript hint characters above the letter keys on the ABC layer, which drove the decision to adopt the iPadOS layout rather than carrying the iPhone layout across both platforms. The layouts were kept separate rather than attempting a one-size-fits-both approach.</p>
+
+  <div class="note">
+    <strong>Note for developers:</strong> Do not assume the iPhone layout scales acceptably to iPad. The key counts, row structures, and action key placements are genuinely different between stock iOS and stock iPadOS. Match each platform independently.
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="diacriticals">
+  <h2>6. Diacritical coverage</h2>
+
+  <p>SciMath's long-press diacritical set is a strict superset of the stock iOS English keyboard. The stock keyboard covers the most common French and German variants. SciMath extends this to cover:</p>
+
+  <ul>
+    <li>French (à â æ ç œ)</li>
+    <li>German (ä ö ü)</li>
+    <li>Scandinavian (å ø ā)</li>
+    <li>Spanish (ñ, inverted ¿ on ?, inverted ¡ on !)</li>
+    <li>Eastern European (ě č š ž and related forms)</li>
+    <li>Scholarly Latin (ā ē ī ō ū macron forms, ę ogonek forms)</li>
+  </ul>
+
+  <p>The extension is deliberate: SciMath targets technical and scientific users who frequently write in multiple languages or use scholarly romanization systems. The additional diacriticals are present because they could be added without cost to users who don't need them, and they address real gaps in the stock English keyboard.</p>
+
+  <p>The long-press popup respects shift state: with shift active, all alternates appear in uppercase.</p>
+
+  <h3>Punctuation alternates added for the same reason</h3>
+  <table>
+    <tr><th>Key</th><th>Alternates</th><th>Rationale</th></tr>
+    <tr><td>?</td><td>⸮ ¿ ‽</td><td>Percontation point for rhetorical questions; Spanish inverted; interrobang</td></tr>
+    <tr><td>!</td><td>¡</td><td>Spanish inverted</td></tr>
+    <tr><td>-</td><td>– — •</td><td>En dash, em dash, bullet</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section id="colors">
+  <h2>7. Keyboard background colors</h2>
+
+  <p>Apple does not publish the RGB values for stock keyboard key colors. The semantic system colors available to extensions (<code>UIColor.systemBackground</code> and friends) do not match the keyboard's actual appearance — they are designed for app UI, not keyboard chrome.</p>
+
+  <p>SciMath uses explicit hardcoded RGB values tuned by hand against the stock keyboard in both light and dark mode. The values were arrived at empirically.</p>
+
+  <div class="note">
+    <strong>Note for developers:</strong> Do not use semantic system colors for keyboard key backgrounds. They will not match stock. Pixel-sample the stock keyboard on your target devices and tune manually. The values will be close but not identical across device generations — Apple adjusts display calibration.
+  </div>
+
+  <h3>Host app rendering variation</h3>
+  <p>Some apps use custom text rendering pipelines rather than standard UIKit text input (Google Docs is a documented example). In these apps, third-party keyboard keys may appear with different contrast than in standard UIKit text fields. This is a host-app issue and cannot be corrected from within the keyboard extension.</p>
+
+  <h3>Action key pressed state</h3>
+  <p>The pressed-state background for action keys (return, backspace, shift) is also hardcoded. In dark mode, the pressed state lightens the key; in light mode, it goes to near-white. The values used in SciMath:</p>
+
+<pre>// Dark mode pressed
+UIColor(red: 0.42, green: 0.42, blue: 0.44, alpha: 1.0)
+// Light mode pressed
+UIColor.white</pre>
+</section>
+
+<!-- 8 -->
+<section id="globe">
+  <h2>8. Globe key</h2>
+
+  <p>Stock Apple keyboards integrate the globe (keyboard switcher) into the bottom row using private layout code unavailable to extensions. SciMath handles the globe differently on each platform.</p>
+
+  <h3>iPhone</h3>
+  <p>SciMath does not draw a globe key on iPhone. iOS injects the globe automatically when <code>needsInputModeSwitchKey</code> returns <code>true</code>. The injected globe appears outside the main keyboard area rather than inline in the bottom row. This is visually distinct from stock but is the correct supported behavior — attempting to draw your own globe button and call <code>advanceToNextInputMode()</code> directly is unreliable and has caused issues in earlier versions.</p>
+
+  <h3>iPad</h3>
+  <p>SciMath draws its own globe on iPad using Apple's documented API: a native <code>globe</code> SF Symbol button, short-tap calls <code>advanceToNextInputMode()</code>, long-press calls <code>handleInputModeList(from:with:)</code> to show the language picker. This is the only supported path for iPad keyboard switcher integration.</p>
+
+  <div class="note">
+    <strong>Note for developers:</strong> Do not attempt to draw and wire your own globe button on iPhone. Use <code>needsInputModeSwitchKey</code> to check whether iOS will inject the globe, and leave the slot empty if so. On iPad, use the documented SF Symbol + API path above.
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="mic">
+  <h2>9. Microphone button</h2>
+
+  <p>SciMath shows a dimmed, non-interactive microphone button in the iPad toolbar. It does nothing when tapped.</p>
+
+  <p>The rationale: stock iPad keyboards show a microphone button in this position. Users who switch to SciMath have muscle memory for the surrounding key positions. An absent mic button shifts every other key in the toolbar, causing misses on adjacent keys during the adjustment period. The visual placeholder preserves spatial layout at zero functional cost.</p>
+
+  <p>Dictation is not available in SciMath because it requires Full Access to route audio through Apple's servers. See <a href="#full-access">Section 1</a>.</p>
+
+  <div class="info">
+    Users who need dictation alongside SciMath content can hold the globe key, switch to a stock system keyboard, dictate, then switch back. This is documented in the user manual.
+  </div>
+</section>
+
+<footer>
+  <p>SciMath Keyboard &copy; 2026 J. W. Bruce Shaw &mdash; <a href="mailto:SciMathKeyboard@gmail.com">SciMathKeyboard@gmail.com</a> &mdash; <a href="https://scimathkeyboard.com">scimathkeyboard.com</a></p>
+</footer>
+
+</div>
+</body>
+</html>

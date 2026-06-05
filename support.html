@@ -14,20 +14,29 @@
   nav a:hover { text-decoration: underline; }
   section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
   h2 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; }
-  h3 { color: #ccc; }
+  h3 { color: #ccc; margin-top: 1.4em; }
+  p { line-height: 1.7; color: #ccc; }
+  ol, ul { color: #ccc; line-height: 1.8; }
   table { width: 100%; border-collapse: collapse; margin: 16px 0; }
   th { background: #1a1a1a; color: #4a9eff; text-align: left; padding: 10px; border: 1px solid #333; }
-  td { padding: 10px; border: 1px solid #333; vertical-align: top; font-size: 0.95em; }
+  td { padding: 10px; border: 1px solid #333; vertical-align: top; font-size: 0.95em; color: #ccc; }
+  .docs { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .doc-link { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 14px 18px; text-decoration: none; color: #e0e0e0; display: flex; align-items: center; gap: 14px; transition: border-color 0.2s; }
+  .doc-link:hover { border-color: #4a9eff; }
+  .doc-icon { font-size: 1.6em; flex-shrink: 0; }
+  .doc-title { color: #fff; font-weight: bold; margin-bottom: 2px; }
+  .doc-desc { font-size: 0.85em; color: #888; }
   code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #4a9eff; }
   footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 60px; }
   footer a { color: #4a9eff; text-decoration: none; }
+  a { color: #4a9eff; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>SciMath Keyboard</h1>
-  <p>Support &amp; User Guide</p>
+  <p>Support</p>
 </header>
 
 <nav>
@@ -38,64 +47,63 @@
 
 <section>
 
+  <h2>Documentation</h2>
+  <div class="docs">
+    <a class="doc-link" href="SciMath Keyboard Pamphlet.pdf">
+      <span class="doc-icon">📄</span>
+      <div>
+        <div class="doc-title">Quick Start Guide</div>
+        <div class="doc-desc">Getting started, layer overview, key flash, iPad features, and quick reference.</div>
+      </div>
+    </a>
+    <a class="doc-link" href="SciMath manual.pdf">
+      <span class="doc-icon">📖</span>
+      <div>
+        <div class="doc-title">User Manual</div>
+        <div class="doc-desc">Exhaustive reference — every key, every layer, every feature, every edge case.</div>
+      </div>
+    </a>
+  </div>
+
   <h2>Installation</h2>
   <ol>
     <li>Download SciMath Keyboard from the App Store.</li>
-    <li>Open Settings → General → Keyboard → Keyboards → Add New Keyboard.</li>
-    <li>Select SciMath Keyboard from the list.</li>
-    <li>When prompted about Full Access, you do not need to enable it. SciMath works without it.</li>
-    <li>Switch to SciMath at any time using the globe key on your keyboard.</li>
+    <li>Open <strong>Settings → General → Keyboard → Keyboards → Add New Keyboard</strong>.</li>
+    <li>Select <strong>SciMath Keyboard</strong> from the list.</li>
+    <li>When prompted about Full Access, you do not need to enable it. SciMath works completely without it.</li>
   </ol>
 
-  <h2>Switching Keyboards</h2>
-  <p>Tap the globe key to cycle to the next keyboard. Hold the globe key to see a list of all installed keyboards and pick one directly.</p>
-
-  <h2>Layers</h2>
+  <h2>The Four Layers</h2>
   <table>
     <tr><th>Layer</th><th>Access</th><th>Contents</th></tr>
-    <tr><td>ABC</td><td>Default / ABC button</td><td>QWERTY letters. Long-press any letter for diacritical variants.</td></tr>
-    <tr><td>123</td><td>123 button</td><td>Numbers and common punctuation.</td></tr>
-    <tr><td>#+= </td><td>#+= button (from 123)</td><td>Brackets, math operators, currency symbols.</td></tr>
-    <tr><td>sci</td><td>sci button (from #+=)</td><td>Scientific and mathematical symbols.</td></tr>
-  </table>
-  <p>The layer cycle is: 123 → #+= → sci → 123. The ABC button returns to letters from any layer.</p>
-
-  <h2>Long-Press Alternates</h2>
-  <p>Hold any key with alternates to see a popup of variants. Slide to the one you want and release.</p>
-  <table>
-    <tr><th>Key</th><th>Alternates</th></tr>
-    <tr><td>Letters</td><td>Diacritical variants (à á â ä æ etc.) — superset of stock iOS English</td></tr>
-    <tr><td>Numbers</td><td>Superscript and subscript (¹ ₁ ² ₂ etc.)</td></tr>
-    <tr><td>?</td><td>⸮ ¿ ‽</td></tr>
-    <tr><td>!</td><td>¡</td></tr>
-    <tr><td>-</td><td>– — •</td></tr>
-    <tr><td>$</td><td>€ ¢ ¥ £ ₽ ₩</td></tr>
-    <tr><td>Ω</td><td>ω</td></tr>
-    <tr><td>∈</td><td>∉ ∋ ⊂ ⊃ ∪ ∩ ∅</td></tr>
-    <tr><td>∴</td><td>∵</td></tr>
-    <tr><td>∀</td><td>∃</td></tr>
+    <tr><td>ABC</td><td>Default</td><td>QWERTY letters; diacriticals on long-press</td></tr>
+    <tr><td>123</td><td>123 button</td><td>Numbers and common punctuation</td></tr>
+    <tr><td>#+=</td><td>#+= button</td><td>Brackets, operators, currency</td></tr>
+    <tr><td>sci</td><td>sci button</td><td>° ± × ÷ ≈ ≠ ≤ ≥ √ ∞ &nbsp; ∑ † ∫ ∂ ∇ Δ ℏ Å µ Ω &nbsp; π ⊙ ∴ ∀ · ∝ ∈ ′ ⊥</td></tr>
   </table>
 
-  <h2>iPad Pull-Down</h2>
-  <p>On iPad, each key shows a small secondary character above the main label. Swipe down on any key to insert that secondary character without switching layers.</p>
+  <h2>Known Limitations</h2>
 
-  <h2>Trackpad Mode</h2>
-  <p>Hold the spacebar until the key labels fade. You are now in trackpad mode — drag left or right to move the text cursor. Lift your finger to exit.</p>
+  <h3>Dictation</h3>
+  <p>Dictation requires Full Access, which SciMath does not request. To dictate: hold the globe key, switch to a stock system keyboard, dictate, then switch back to SciMath.</p>
 
-  <h2>Spacebar</h2>
-  <p>The spacebar flashes "Scientific" briefly each time the keyboard appears. The <code>sci</code> badge in the lower right is a permanent language indicator. Key flash (brief colour inversion on tap) can be toggled in the SciMath app.</p>
+  <h3>Autocorrect and Predictive Text</h3>
+  <p>Autocorrect and predictive text require Full Access. They are not available in SciMath. Switch to a stock keyboard for prose passages and return to SciMath for symbol entry.</p>
 
-  <h2>Dictation</h2>
-  <p>SciMath does not provide dictation. Dictation requires Full Access and sends voice to Apple's servers. If you need dictation, switch to a stock system keyboard, dictate, then switch back to SciMath.</p>
+  <h3>Emoji</h3>
+  <p>SciMath has no emoji key. To insert emoji: hold the globe key, switch to a stock keyboard, select your emoji, then switch back to SciMath.</p>
 
-  <h2>Recommended Workflow for Extended Typing</h2>
-  <p>For long prose passages, use your home-language keyboard (EN, IS, etc.) and switch to SciMath when you need scientific or symbol input, then switch back. This is particularly relevant on iOS 26.x where a known Apple platform issue affects third-party keyboard accuracy under rapid typing.</p>
+  <h3>Slide-to-Type</h3>
+  <p>Swipe typing is not currently supported.</p>
+
+  <h3>Full Greek Alphabet</h3>
+  <p>SciMath includes π, µ, Ω, and ω as mathematical constants and units. Other Greek letters are not available. Switch to a Greek system keyboard for those passages.</p>
 
   <h2>Full Access</h2>
-  <p>SciMath does not require Full Access and will never ask for it. iOS displays a standard warning when you add any third-party keyboard. This warning does not reflect SciMath's actual behaviour — SciMath never logs or transmits what you type.</p>
+  <p>iOS will warn that SciMath "may be able to access everything you type." This warning appears for all third-party keyboards regardless of their actual behaviour. SciMath never logs or transmits what you type. Full Access is not required and will never be requested. See the <a href="privacy.html">Privacy Policy</a>.</p>
 
   <h2>Contact</h2>
-  <p>SciMathKeyboard@gmail.com</p>
+  <p><a href="mailto:SciMathKeyboard@gmail.com">SciMathKeyboard@gmail.com</a></p>
 
 </section>
 

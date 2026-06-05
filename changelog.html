@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Changelog — SciMath Keyboard</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 0; background: #0a0a0a; color: #e0e0e0; }
+  header { background: #111; padding: 40px 20px; text-align: center; border-bottom: 1px solid #222; }
+  header h1 { font-size: 2.4em; margin: 0 0 10px 0; color: #fff; }
+  header p { font-size: 1.1em; color: #999; margin: 0; }
+  nav { background: #111; text-align: center; padding: 12px; border-bottom: 1px solid #222; }
+  nav a { color: #4a9eff; text-decoration: none; margin: 0 16px; font-size: 0.95em; }
+  nav a:hover { text-decoration: underline; }
+  section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+  p { line-height: 1.7; color: #ccc; }
+  ul { color: #ccc; line-height: 1.8; padding-left: 1.4em; margin: 0.5em 0 1em; }
+  li { margin: 0.2em 0; }
+  code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; color: #4a9eff; font-family: "SF Mono", "Fira Code", monospace; }
+  .entry { border-left: 3px solid #333; padding-left: 1.2em; margin-bottom: 2em; }
+  .entry.current { border-left-color: #4a9eff; }
+  .version { font-size: 1.1em; font-weight: bold; color: #fff; margin: 0 0 0.3em; }
+  .version .tag { font-size: 0.75em; font-weight: normal; color: #888; margin-left: 0.6em; vertical-align: middle; }
+  footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 60px; }
+  footer a { color: #4a9eff; text-decoration: none; }
+  a { color: #4a9eff; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SciMath Keyboard</h1>
+  <p>Changelog</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="support.html">Support</a>
+  <a href="privacy.html">Privacy</a>
+</nav>
+
+<section>
+
+  <p>Entries marked [R] were reconstructed from thread history after the fact.</p>
+
+  <div class="entry current">
+    <p class="version">v0.452 <span class="tag">current</span></p>
+    <ul>
+      <li>iOS 26 gesture regression workaround forward-ported from v0.400 fork.</li>
+      <li><code>ImmediatePanGestureRecognizer</code> fully integrated into main branch.</li>
+      <li>Key flash confirmed working post-fork merge.</li>
+      <li>Shift state handling verified on both iPhone and iPad post-merge.</li>
+      <li>Brochure and user manual documentation produced.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.434</p>
+    <ul>
+      <li>Slide-to-type removed. Gesture architecture conflicted irreconcilably with balloon gesture recognition.</li>
+      <li>Website updated to remove slide-to-type references.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.400 <span class="tag">iOS 26 gesture fork</span></p>
+    <ul>
+      <li>Apple regression (FB19394663 / FB19405284): <code>UIPanGestureRecognizer</code> no longer fires <code>.began</code> on stationary contact in keyboard extensions on iOS 26.x.</li>
+      <li>Workaround: <code>ImmediatePanGestureRecognizer</code> subclass overrides <code>touchesBegan</code> to force <code>state = .began</code> immediately.</li>
+      <li>Fork created to isolate and test workaround before forward-porting.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.900 <span class="tag">pre-release milestone</span></p>
+    <ul>
+      <li>Version label removed from spacebar.</li>
+      <li>ContentView version synced.</li>
+      <li>Contact email confirmed: SciMathKeyboard@gmail.com.</li>
+      <li>All documentation updated.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.322</p>
+    <ul>
+      <li>Stabilisation work.</li>
+      <li>Regression work on <code>flashKey</code> / <code>darkPress</code> / <code>letterTouchUp</code> interaction.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.319 <span class="tag">sync milestone</span></p>
+    <ul>
+      <li>iPad globe key: tap advances to next keyboard, long-press opens picker via <code>handleInputModeList(from:with:)</code>.</li>
+      <li>Both source files synced to same version.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.313</p>
+    <ul>
+      <li>Fixed iPad comma/period insertion via <code>accessibilityIdentifier</code>.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.188</p>
+    <ul>
+      <li>iPhone landscape keyboard height corrected: <code>keyH</code> now orientation-aware (<code>isPad ? 84 : isLandscape ? 36 : 46</code>).</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.185</p>
+    <ul>
+      <li>iPad shift-up hint characters on ABC layer: grey secondary glyphs above each key matching stock iPadOS layout.</li>
+      <li>Font weight reverted to <code>.regular</code> (v0.183 experiment with <code>.light</code> was an optical illusion caused by missing hints).</li>
+      <li>Title vertical alignment set to <code>.bottom</code> on iPad ABC keys with hints.</li>
+      <li>Return key on iPad row 2 flexes to fill remaining row width.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.183</p>
+    <ul>
+      <li>iPad corner radius 14pt (vs 11pt iPhone), key gap 8pt (vs 6pt iPhone).</li>
+      <li>Return key <code>width: nil</code> with content hugging priority low.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.182</p>
+    <ul>
+      <li>iPad key height bumped from 56pt to 84pt to match stock iPad key height.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.181</p>
+    <ul>
+      <li>Stagger applied to iPad number/symbol/sci rows 2 and 3.</li>
+      <li>Fixed toggle label on #+= layer: now shows "sci" (not "123"), restoring correct layer cycle.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.162 <span class="tag">R</span></p>
+    <ul>
+      <li>Spacebar press highlight implemented.</li>
+      <li>Spacebar long-press trackpad cursor mode: labels blank via alpha walk, horizontal drag moves caret via <code>adjustTextPosition(byCharacterOffset:)</code>.</li>
+      <li>GeometryDiagnostic call site removed (debug artefact).</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.158 <span class="tag">R</span></p>
+    <ul>
+      <li>GeometryDiagnostic.swift added (debug only). Confirmed: 38×46pt letter keys, 42×46pt bottom row, 80×46pt action keys.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.157 <span class="tag">R</span></p>
+    <ul>
+      <li>Footnote ladder added to dagger key long-press: † → ‡ § ‖ ¶ ※</li>
+      <li>Asterisk deliberately excluded (multiple independent uses).</li>
+      <li>Design Notes &amp; Errata document established as canonical project documentation.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p class="version">v0.156 and earlier <span class="tag">R</span></p>
+    <ul>
+      <li>Initial keyboard extension development.</li>
+      <li>Layer system established: ABC → 123 → #+= → sci.</li>
+      <li>Long-press popup architecture with <code>goDown</code> flag for top-row keys.</li>
+      <li><code>rebuildAndSwap()</code> pattern established for all layout changes.</li>
+      <li><code>PaddedButton</code> subclass for expanded hit targets.</li>
+      <li>Full Access explicitly not requested; no networking code.</li>
+      <li>sci layer symbols finalised.</li>
+      <li>Extended diacriticals added.</li>
+      <li>Superscripts and subscripts on digit long-press.</li>
+    </ul>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 J. W. Bruce Shaw. All rights reserved.</p>
+  <p><a href="index.html">Home</a> · <a href="support.html">Support</a> · <a href="privacy.html">Privacy</a></p>
+</footer>
+
+</body>
+</html>

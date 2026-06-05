@@ -14,12 +14,19 @@
   nav a:hover { text-decoration: underline; }
   section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
   h2 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-  th { background: #1a1a1a; color: #4a9eff; text-align: left; padding: 10px; border: 1px solid #333; }
-  td { padding: 10px; border: 1px solid #333; vertical-align: top; }
-  .badge { display: inline-block; background: #1a1a2e; border: 1px solid #4a9eff; color: #4a9eff; border-radius: 6px; padding: 4px 12px; font-size: 0.85em; margin: 4px 4px 4px 0; }
+  p { line-height: 1.7; color: #ccc; }
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+  .badge { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 10px 16px; font-size: 0.9em; color: #ccc; }
+  .badge strong { color: #fff; display: block; margin-bottom: 2px; }
+  .docs { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+  .doc-link { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px 20px; text-decoration: none; color: #e0e0e0; display: flex; align-items: center; gap: 16px; transition: border-color 0.2s; }
+  .doc-link:hover { border-color: #4a9eff; }
+  .doc-icon { font-size: 1.8em; flex-shrink: 0; }
+  .doc-title { color: #fff; font-weight: bold; margin-bottom: 3px; }
+  .doc-desc { font-size: 0.88em; color: #888; }
   footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 60px; }
   footer a { color: #4a9eff; text-decoration: none; }
+  a { color: #4a9eff; }
 </style>
 </head>
 <body>
@@ -36,110 +43,70 @@
 </nav>
 
 <section>
-  <h2>What is SciMath?</h2>
-  <p>SciMath is a custom iOS and iPadOS keyboard extension providing a full QWERTY layout plus three additional symbol layers: numbers and punctuation, extended symbols, and scientific/mathematical characters.</p>
-  <p>Designed for scientists, mathematicians, engineers, students, and anyone who regularly types symbols that standard keyboards don't provide.</p>
 
-  <h2>Layers</h2>
-  <table>
-    <tr><th>Layer</th><th>Access</th><th>Contents</th></tr>
-    <tr><td>ABC</td><td>Default</td><td>QWERTY letters, diacriticals on long-press</td></tr>
-    <tr><td>123</td><td>123 button</td><td>Numbers, common punctuation</td></tr>
-    <tr><td>#+= </td><td>#+= toggle</td><td>Brackets, math operators, currency</td></tr>
-    <tr><td>sci</td><td>sci toggle</td><td>°±×÷≈≠≤≥√∞ ∑∫∂∇Δℏ µ π⊙∴∀·∝∈</td></tr>
-  </table>
+  <h2>What Is SciMath?</h2>
+  <p>SciMath is a keyboard for iOS and iPadOS that gives you the symbols science, mathematics, and technical writing actually need — without copying from character maps, switching apps, or approximating.</p>
+  <p>Every symbol is a proper Unicode character. It copies, searches, and renders correctly in every app that supports Unicode text.</p>
+  <p>SciMath is a one-time purchase. There is no subscription, no in-app purchase, and no advertising of any kind.</p>
 
   <h2>Features</h2>
-  <span class="badge">Scientific symbols</span>
-  <span class="badge">Extended diacriticals</span>
-  <span class="badge">Long-press alternates</span>
-  <span class="badge">Slide-to-type</span>
-  <span class="badge">Trackpad cursor mode</span>
-  <span class="badge">iPad optimised</span>
-  <span class="badge">No Full Access required</span>
-  <span class="badge">No network access</span>
-  <span class="badge">No data collection</span>
+  <div class="badges">
+    <div class="badge"><strong>∇ × ∂ ∫ ℏ</strong>Scientific symbols</div>
+    <div class="badge"><strong>∈ ⊂ ∪ ∀ ∃</strong>Set theory &amp; logic</div>
+    <div class="badge"><strong>² ₂ ³ ₃</strong>Superscripts &amp; subscripts</div>
+    <div class="badge"><strong>à ö ñ ě ā</strong>Full diacriticals</div>
+    <div class="badge"><strong>† ‡ § ‖ ¶</strong>Footnote symbols</div>
+    <div class="badge"><strong>⸮ ¿ ‽</strong>Punctuation alternates</div>
+    <div class="badge"><strong>No Full Access</strong>Complete privacy</div>
+    <div class="badge"><strong>No subscription</strong>One-time purchase</div>
+    <div class="badge"><strong>No ads</strong>Ever</div>
+  </div>
+
+  <h2>Documentation</h2>
+  <div class="docs">
+    <a class="doc-link" href="SciMath Keyboard Pamphlet.pdf">
+      <span class="doc-icon">📄</span>
+      <div>
+        <div class="doc-title">Quick Start Guide</div>
+        <div class="doc-desc">Getting started, layer overview, diacriticals, key flash, iPad features, and quick reference.</div>
+      </div>
+    </a>
+    <a class="doc-link" href="SciMath manual.pdf">
+      <span class="doc-icon">📖</span>
+      <div>
+        <div class="doc-title">User Manual</div>
+        <div class="doc-desc">Exhaustive reference — every key, every layer, every feature, every edge case.</div>
+      </div>
+    </a>
+    <a class="doc-link" href="developer-notes.html">
+      <span class="doc-icon">🛠</span>
+      <div>
+        <div class="doc-title">Developer Notes</div>
+        <div class="doc-desc">Platform constraints, iOS architectural decisions, and hard-won implementation notes for other keyboard extension developers.</div>
+      </div>
+    </a>
+    <a class="doc-link" href="readme.html">
+      <span class="doc-icon">📋</span>
+      <div>
+        <div class="doc-title">README</div>
+        <div class="doc-desc">Architecture overview, design decisions, known limitations, and the iOS 26 gesture regression workaround.</div>
+      </div>
+    </a>
+    <a class="doc-link" href="changelog.html">
+      <span class="doc-icon">🕓</span>
+      <div>
+        <div class="doc-title">Changelog</div>
+        <div class="doc-desc">Full version history from initial development through current release.</div>
+      </div>
+    </a>
+  </div>
 
   <h2>Privacy</h2>
-  <p>SciMath does not require Full Access. It never logs keystrokes, never makes network requests, and contains no analytics or telemetry of any kind. Nothing you type ever leaves your device. See the <a href="privacy.html">Privacy Policy</a> for full details.</p>
+  <p>SciMath does not require Full Access and will never ask for it. It never logs keystrokes, never makes network requests, and contains no analytics or telemetry of any kind. Nothing you type ever leaves your device. See the <a href="privacy.html">Privacy Policy</a> for full details.</p>
 
   <h2>Contact</h2>
-  <p>SciMathKeyboard@gmail.com</p>
-</section>
+  <p><a href="mailto:SciMathKeyboard@gmail.com">SciMathKeyboard@gmail.com</a></p>
 
-<footer>
-  <p>© 2026 J. W. Bruce Shaw. All rights reserved.</p>
-  <p><a href="privacy.html">Privacy Policy</a> · <a href="support.html">Support</a></p>
-</footer>
-
-</body>
-</html>
-!!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SciMath Keyboard</title>
-<style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 0; background: #0a0a0a; color: #e0e0e0; }
-  header { background: #111; padding: 40px 20px; text-align: center; border-bottom: 1px solid #222; }
-  header h1 { font-size: 2.4em; margin: 0 0 10px 0; color: #fff; }
-  header p { font-size: 1.1em; color: #999; margin: 0; }
-  nav { background: #111; text-align: center; padding: 12px; border-bottom: 1px solid #222; }
-  nav a { color: #4a9eff; text-decoration: none; margin: 0 16px; font-size: 0.95em; }
-  nav a:hover { text-decoration: underline; }
-  section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
-  h2 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-  th { background: #1a1a1a; color: #4a9eff; text-align: left; padding: 10px; border: 1px solid #333; }
-  td { padding: 10px; border: 1px solid #333; vertical-align: top; }
-  .badge { display: inline-block; background: #1a1a2e; border: 1px solid #4a9eff; color: #4a9eff; border-radius: 6px; padding: 4px 12px; font-size: 0.85em; margin: 4px 4px 4px 0; }
-  footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 60px; }
-  footer a { color: #4a9eff; text-decoration: none; }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>SciMath Keyboard</h1>
-  <p>Scientific and mathematical symbols for iOS and iPadOS</p>
-</header>
-
-<nav>
-  <a href="index.html">Home</a>
-  <a href="support.html">Support</a>
-  <a href="privacy.html">Privacy</a>
-</nav>
-
-<section>
-  <h2>What is SciMath?</h2>
-  <p>SciMath is a custom iOS and iPadOS keyboard extension providing a full QWERTY layout plus three additional symbol layers: numbers and punctuation, extended symbols, and scientific/mathematical characters.</p>
-  <p>Designed for scientists, mathematicians, engineers, students, and anyone who regularly types symbols that standard keyboards don't provide.</p>
-
-  <h2>Layers</h2>
-  <table>
-    <tr><th>Layer</th><th>Access</th><th>Contents</th></tr>
-    <tr><td>ABC</td><td>Default</td><td>QWERTY letters, diacriticals on long-press</td></tr>
-    <tr><td>123</td><td>123 button</td><td>Numbers, common punctuation</td></tr>
-    <tr><td>#+= </td><td>#+= toggle</td><td>Brackets, math operators, currency</td></tr>
-    <tr><td>sci</td><td>sci toggle</td><td>°±×÷≈≠≤≥√∞ ∑∫∂∇Δℏ µ π⊙∴∀·∝∈</td></tr>
-  </table>
-
-  <h2>Features</h2>
-  <span class="badge">Scientific symbols</span>
-  <span class="badge">Extended diacriticals</span>
-  <span class="badge">Long-press alternates</span>
-  <span class="badge">Trackpad cursor mode</span>
-  <span class="badge">iPad optimised</span>
-  <span class="badge">No Full Access required</span>
-  <span class="badge">No network access</span>
-  <span class="badge">No data collection</span>
-
-  <h2>Privacy</h2>
-  <p>SciMath does not require Full Access. It never logs keystrokes, never makes network requests, and contains no analytics or telemetry of any kind. Nothing you type ever leaves your device. See the <a href="privacy.html">Privacy Policy</a> for full details.</p>
-
-  <h2>Contact</h2>
-  <p>SciMathKeyboard@gmail.com</p>
 </section>
 
 <footer>

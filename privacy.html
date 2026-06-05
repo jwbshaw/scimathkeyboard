@@ -14,8 +14,11 @@
   nav a:hover { text-decoration: underline; }
   section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
   h2 { color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; }
+  p { line-height: 1.7; color: #ccc; }
+  code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #4a9eff; }
   footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 60px; }
   footer a { color: #4a9eff; text-decoration: none; }
+  a { color: #4a9eff; }
 </style>
 </head>
 <body>
@@ -32,34 +35,41 @@
 </nav>
 
 <section>
-  <p><em>Last updated: May 2026</em></p>
+  <p><em>Last updated: June 2026</em></p>
 
   <h2>Summary</h2>
   <p>SciMath Keyboard collects no data. It never has and never will.</p>
 
   <h2>Data Collection</h2>
-  <p>SciMath Keyboard collects no personal data, usage data, or any other data of any kind. There is no analytics, no crash reporting, no telemetry, and no server-side component.</p>
+  <p>SciMath Keyboard collects no personal data, usage data, or any other data of any kind. There is no analytics, no crash reporting, no telemetry, and no server-side component of any kind.</p>
 
   <h2>Keystrokes</h2>
   <p>SciMath does not log, store, transmit, or process what you type. All text insertion is performed exclusively through Apple's <code>UITextDocumentProxy.insertText()</code> API, which passes characters directly to the host application. SciMath never sees the surrounding text context.</p>
 
   <h2>Network Access</h2>
-  <p>SciMath Keyboard makes no network requests of any kind. It has no server, no backend, and no external dependencies. It functions entirely on-device.</p>
+  <p>SciMath Keyboard makes no network requests of any kind. The relevant networking frameworks are not imported. No connections are opened, no data is transmitted, and no server receives anything from SciMath.</p>
+
+  <h2>Local Storage</h2>
+  <p>The only data SciMath stores locally on your device is your key flash preference (on or off), so the keyboard extension and the containing app stay in sync. This preference never leaves your device. Entries you type in the SciMath app are stored in standard iOS app storage on your device only, and are permanently deleted when you use Clear All or uninstall the app.</p>
 
   <h2>Full Access</h2>
-  <p>SciMath does not request or require Full Access. When you install a third-party keyboard, iOS displays a standard warning that the keyboard may be able to access everything you type. This warning is shown for all third-party keyboards regardless of their actual behaviour. SciMath does not access anything you type beyond what is necessary to insert the character you tapped.</p>
+  <p>SciMath does not request Full Access and will never ask for it.</p>
+  <p>By default, iOS keyboard extensions run in a restricted sandbox: no network access, no shared storage, no system pasteboard, no communication outside the extension. This is the environment SciMath runs in. Full Access removes nearly all of these restrictions and would allow a keyboard to transmit keystrokes to a remote server. SciMath has no need for any of the capabilities Full Access provides.</p>
+  <p>iOS displays a standard warning when any third-party keyboard is added, stating that the keyboard "may be able to access everything you type." This warning is shown for all third-party keyboards regardless of their actual behaviour. It does not reflect what SciMath does — SciMath does not access, log, or transmit what you type.</p>
+  <p>Because SciMath does not request Full Access, iOS itself enforces the privacy guarantee. You do not have to trust the developer's intentions. The sandbox makes transmission technically impossible.</p>
 
-  <h2>App Group Shared Defaults</h2>
-  <p>SciMath uses an App Group shared defaults store to communicate one setting between the keyboard extension and the container app: whether key flash is enabled. This data never leaves the device.</p>
+  <h2>Third Parties</h2>
+  <p>SciMath contains no third-party code, no SDKs, no advertising frameworks, and no analytics libraries. There are no third parties involved in any aspect of SciMath's operation.</p>
 
   <h2>Children</h2>
-  <p>SciMath does not collect any information from anyone, including children.</p>
+  <p>SciMath does not collect data from anyone, including children. No age-gating is required because no data collection occurs.</p>
 
   <h2>Changes to This Policy</h2>
-  <p>If this policy changes, the updated version will be posted at this URL with a revised date.</p>
+  <p>If this policy ever changes, the updated version will be posted at this URL with a revised date. Given that SciMath collects no data, substantive changes to this policy are not anticipated.</p>
 
   <h2>Contact</h2>
-  <p>SciMathKeyboard@gmail.com</p>
+  <p><a href="mailto:SciMathKeyboard@gmail.com">SciMathKeyboard@gmail.com</a></p>
+
 </section>
 
 <footer>
